@@ -59,7 +59,7 @@ class PointWOLF(object):
         # Why? anchor point가 가장 단순한 원점 형태이기 때문.
 
         # Local transformation at anchor point
-        pos_transformed = self.local_transformation(pos_normalize)
+        pos_transformed = self.local_transformaton(pos_normalize)
         # local_transformation 돌리고 난 결괏값이 pos_transformed
 
         # Move to origin space
