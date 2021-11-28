@@ -59,7 +59,7 @@ class PointWOLF(object):
         # Why? anchor point가 가장 단순한 원점 형태이기 때문.
 
         # Local transformation at anchor point
-        pos_transformed = self.local_transformation(pos_normalize)
+        pos_transformed = self.local_transformaton(pos_normalize)
         # local_transformation 돌리고 난 결괏값이 pos_transformed
 
         # Move to origin space
@@ -206,10 +206,10 @@ class PointWOLF(object):
              -sy, cy*sx, cy*cx], axis=1).reshape(M,3,3)
 
         # SHEARING MATRIX
-        Sh = np.expand_dims(shear, axis=1) * (np.ones((3, 3)) - np.eyes(3))
-        Sh = shear + np.eyes(3)
+        shear = np.expand_dims(shear, axis=1) * (np.ones((3, 3)) - np.eye(3))
+        shear = shear + np.eye(3)
 
-        pos_normalize = pos_normalize@R@S@Sh + trl.reshape(M,1,3)
+        pos_normalize = pos_normalize@R@S@shear + trl.reshape(M,1,3)
         
         return pos_normalize
 
