@@ -207,7 +207,7 @@ class PointWOLF(object):
 
         # SHEARING MATRIX
         Sh = np.expand_dims(shear, axis=1) * (np.ones((3, 3)) - np.eyes(3))
-        Sh = shear + np.eyes(3)
+        Sh = shear + np.eye(3)
 
         pos_normalize = pos_normalize@R@S@Sh + trl.reshape(M,1,3)
         
