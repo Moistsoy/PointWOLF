@@ -1,15 +1,3 @@
-"""
-@Origin : main.py by Yue Wang
-@Contact: yuewangx@mit.edu
-@Time: 2018/10/13 10:39 PM
-
-modified by {Sanghyeok Lee, Sihyeon Kim}
-@Contact: {cat0626, sh_bs15}@korea.ac.kr
-@File: main.py
-@Time: 2021.09.30
-"""
-
-
 from __future__ import print_function
 import os
 import argparse
@@ -83,7 +71,9 @@ if __name__ == "__main__":
     parser.add_argument('--w_R_range', type=float, default=10, help='Maximum rotation range of local transformation')
     parser.add_argument('--w_S_range', type=float, default=3, help='Maximum scailing range of local transformation')
     parser.add_argument('--w_T_range', type=float, default=0.25, help='Maximum translation range of local transformation')
-    
+    # This should be added
+    parser.add_argument('--w_Sh_range', type=float, default=2, help='Maximum shearing range of local transformation')
+
     # AugTune settings
     parser.add_argument('--AugTune', action='store_true', help='Use AugTune')
     parser.add_argument('--l', type=float, default=0.1, help='Difficulty parameter lambda')  
