@@ -72,7 +72,7 @@ if __name__ == "__main__":
     parser.add_argument('--w_S_range', type=float, default=3, help='Maximum scailing range of local transformation')
     parser.add_argument('--w_T_range', type=float, default=0.25, help='Maximum translation range of local transformation')
     # This should be added
-    # parser.add_argument('--w_Sh_range', type=float, default=??, help='Maximum shearing range of local transformation')
+    parser.add_argument('--w_Sh_range', type=float, default=2, help='Maximum shearing range of local transformation')
 
     # AugTune settings
     parser.add_argument('--AugTune', action='store_true', help='Use AugTune')

@@ -16,8 +16,8 @@ class PointWOLF(object):
         self.S_range = (1., args.w_S_range)                         # SCALING range by user input
         self.T_range = (-abs(args.w_T_range), abs(args.w_T_range))  # TRANSLATION range by user input
         # NEED TO ADD SHEARING RANGE
-        # ex)
-        # self.Sh_range = (-abs(args.w_Sh_range), abs(args.w_Sh_range))
+
+        self.Sh_range = (-abs(args.w_Sh_range), abs(args.w_Sh_range))
 
 
     def __call__(self, pos):
@@ -161,8 +161,7 @@ class PointWOLF(object):
         M,N,_ = pos_normalize.shape
         # 표준화 시킨 pos_normalize에서 M 과 N값 가져옴.
 
-        # Shearing 추가되면 np.random.binomial(1, 0,5, (M, 4)) 가 되어야 할 듯. #(M, 4)
-        transformation_dropout = np.random.binomial(1, 0.5, (M,3)) #(M,3)
+        transformation_dropout = np.random.binomial(1, 0.5, (M,4)) #(M,4)
         # 난수 생성
 
         transformation_axis =self.get_random_axis(M) #(M,3)
@@ -188,8 +187,8 @@ class PointWOLF(object):
         # 축하고 곱해줌.
         
         # SHEARING
-        # shear = np.random.uniform(*self.Sh_range, size = (M, 3)) * transformation_dropout[:, 3:4]
-        # shear = shear * transformation_axis
+        shear = np.random.uniform(*self.Sh_range, size = (M, 3)) * transformation_dropout[:, 3:4]
+        shear = shear * transformation_axis
 
 
         # Scaling Matrix
@@ -207,11 +206,10 @@ class PointWOLF(object):
              -sy, cy*sx, cy*cx], axis=1).reshape(M,3,3)
 
         # SHEARING MATRIX
-        # Sh = np.expand_dims(shear, axis=1) * (np.ones((3, 3)) - np.eyes(3))
-        # Sh = shear + np.eyes(3)
+        Sh = np.expand_dims(shear, axis=1) * (np.ones((3, 3)) - np.eyes(3))
+        Sh = shear + np.eyes(3)
 
-        pos_normalize = pos_normalize@R@S + trl.reshape(M,1,3)
-        # pos_normalize = pos_normalize@R@S@Sh + trl.reshape(M,1,3)
+        pos_normalize = pos_normalize@R@S@Sh + trl.reshape(M,1,3)
         
         return pos_normalize
 
